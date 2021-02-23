@@ -43,7 +43,6 @@ glm::vec3 colors[n_cols] = {
 glm::vec3 player_color = glm::vec3(1.0f, 1.0f, 0.0f);
 glm::vec3 player_outline_color = glm::vec3(0.0f, 1.0f, 0.0f);
 glm::vec3 sphere_color = glm::vec3(1.0f, 0.0f, 0.0f);
-int sphere_segments = 40;
 
 glm::vec3 player_default_position = glm::vec3(0.0f, -0.95f, 0.0f);
 glm::vec3 sphere_default_position = player_default_position - glm::vec3(0.0f, 0.01f, 0.0f);
