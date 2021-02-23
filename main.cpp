@@ -324,7 +324,7 @@ int main() {
 	}
 
 	Shader ourShader("shader.vs", "shader.fs");
-  glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 	init(ourShader);
 
 	while (!glfwWindowShouldClose(window)) {
