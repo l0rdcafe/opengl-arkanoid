@@ -239,7 +239,7 @@ void draw_player(Shader shader) {
   sphere_model = glm::translate(sphere_model, sphere_default_position);
 
   if (is_moving) {
-    sphere_model = glm::translate(sphere_model, glm::vec3(0.0f, -2.5f + (float)glfwGetTime() * 0.8f, 0.0f));
+    sphere_model = glm::translate(sphere_model, sphere_default_position + glm::vec3(0.0f, -2.0f + (float)glfwGetTime() * 0.8f, 0.0f));
   }
 
   sphere_model = glm::scale(sphere_model, glm::vec3(0.5f, 0.5f, 1.0f));
