@@ -109,39 +109,34 @@ GLuint init_rect_outline() {
 GLuint init_sphere() {
   GLuint VAO, VBO, EBO;
   float vertices[] = {
-    //top points
-    0.0f, 0.04f, 0.0f, 1.0f, 0.0f, 0.0f, //top point 0
-    0.0f, 0.03f, -0.02f, 1.0f, 0.0f, 0.0f, //top-near 1
-    0.02f, 0.03f, 0.0f, 1.0f, 0.0f, 0.0f, //top-right 2
-    -0.02f, 0.03f, 0.0f, 1.0f, 0.0f, 0.0f, //top-left 3
-    0.0f, 0.03f, 0.02f, 1.0f, 0.0f, 0.0f, //top-far 4
+    0.0f, 0.04f, 0.0f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.03f, -0.02f, 1.0f, 0.0f, 0.0f,
+    0.02f, 0.03f, 0.0f, 1.0f, 0.0f, 0.0f,
+    -0.02f, 0.03f, 0.0f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.03f, 0.02f, 1.0f, 0.0f, 0.0f,
 
-    //midpoints
-    0.0f, 0.0f, -0.03f, 1.0f, 0.0f, 0.0f, //near 5
-    0.02f, 0.0f, -0.02f, 1.0f, 0.0f, 0.0f, //near-right 6
-    0.03f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, //right 7
-    0.02f, 0.0f, 0.02f, 1.0f, 0.0f, 0.0f, //far-right 8
-    0.0f, 0.0f, -0.03f, 1.0f, 0.0f, 0.0f, //far 9
-    -0.02f, 0.0f, 0.02f, 1.0f, 0.0f, 0.0f, //far-left 10
-    -0.03f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, //left 11
-    -0.02f, 0.0f, -0.02f, 1.0f, 0.0f, 0.0f, //near-left 12
+    0.0f, 0.0f, -0.03f, 1.0f, 0.0f, 0.0f,
+    0.02f, 0.0f, -0.02f, 1.0f, 0.0f, 0.0f,
+    0.03f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+    0.02f, 0.0f, 0.02f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, -0.03f, 1.0f, 0.0f, 0.0f,
+    -0.02f, 0.0f, 0.02f, 1.0f, 0.0f, 0.0f,
+    -0.03f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+    -0.02f, 0.0f, -0.02f, 1.0f, 0.0f, 0.0f,
 
-    //bottom points
-    0.0f, -0.03f, -0.02f, 1.0f, 0.0f, 0.0f, //bot-near 13
-    0.02f, -0.03f, 0.0f, 1.0f, 0.0f, 0.0f, //bot-right 14
-    0.0f, -0.03f, 0.02f, 1.0f, 0.0f, 0.0f, //bot-far 15
-    -0.02f, -0.03f, 0.0f, 1.0f, 0.0f, 0.0f, //bot-left 16
-    0.0f, -0.04f, 0.0f, 1.0f, 0.0f, 0.0f, //bot point 17
+    0.0f, -0.03f, -0.02f, 1.0f, 0.0f, 0.0f,
+    0.02f, -0.03f, 0.0f, 1.0f, 0.0f, 0.0f,
+    0.0f, -0.03f, 0.02f, 1.0f, 0.0f, 0.0f,
+    -0.02f, -0.03f, 0.0f, 1.0f, 0.0f, 0.0f,
+    0.0f, -0.04f, 0.0f, 1.0f, 0.0f, 0.0f,
   };
 
   unsigned int indices[] = {
-    //top triangles
     0, 1, 2,
     0, 2, 4,
     0, 4, 3,
     0, 1, 3,
 
-    //upper mid points
     1, 5, 6,
     1, 6, 2,
     2, 6, 7,
@@ -155,10 +150,9 @@ GLuint init_sphere() {
     3, 12, 1,
     1, 12, 5,
 
-    //bottom mid points
-    5, 13, 6, //near botnear near-right
-    6, 13, 14, //near-right, botnear, botright
-    14, 6, 7, //botright, near right, right
+    5, 13, 6,
+    6, 13, 14,
+    14, 6, 7,
     7, 14, 8,
     14, 8, 15,
     15, 8, 9,
@@ -169,13 +163,11 @@ GLuint init_sphere() {
     16, 12, 13,
     13, 12, 5,
 
-    //bottom points
     17, 13, 14,
     17, 14, 15,
     17, 15, 16,
     17, 16, 13,
 
-    ////smaller object
     0, 1, 2,
     0, 2, 3,
     0, 3, 4,
@@ -247,7 +239,7 @@ void draw_player(Shader shader) {
   sphere_model = glm::translate(sphere_model, sphere_default_position);
 
   if (is_moving) {
-    sphere_model = glm::translate(sphere_model, glm::vec3(0.0f, -2.7f + (float)glfwGetTime(), 0.0f));
+    sphere_model = glm::translate(sphere_model, glm::vec3(0.0f, -2.5f + (float)glfwGetTime() * 0.8f, 0.0f));
   }
 
   sphere_model = glm::scale(sphere_model, glm::vec3(0.5f, 0.5f, 1.0f));
