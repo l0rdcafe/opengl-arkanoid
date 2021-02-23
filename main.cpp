@@ -18,8 +18,6 @@ const unsigned int n_sphere_vertices = 360;
 const unsigned int n_rows = 6;
 const unsigned int n_cols = 5;
 
-GLfloat sphere_radius = 1.0f;
-
 float rect_vertices[] = {
   0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
   0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
@@ -43,10 +41,12 @@ glm::vec3 colors[n_cols] = {
 glm::vec3 player_color = glm::vec3(1.0f, 1.0f, 0.0f);
 glm::vec3 player_outline_color = glm::vec3(0.0f, 1.0f, 0.0f);
 glm::vec3 sphere_color = glm::vec3(1.0f, 0.0f, 0.0f);
-int sphere_segments = 40;
 
 glm::vec3 player_default_position = glm::vec3(0.0f, -0.95f, 0.0f);
-glm::vec3 sphere_default_position = player_default_position - glm::vec3(0.0f, 0.01f, 0.0f);
+glm::vec3 sphere_position = player_default_position - glm::vec3(0.0f, 0.01f, 0.0f);
+float speed = 3.0f;
+float delta_time = 0.0f;
+float last_frame = 0.0f;
 
 void handle_input(GLFWwindow* window) {
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
@@ -236,11 +236,12 @@ void draw_player(Shader shader) {
   GLuint sphere_vao = init_sphere();
   glBindVertexArray(sphere_vao);
   glm::mat4 sphere_model = glm::mat4(1.0f);
-  sphere_model = glm::translate(sphere_model, sphere_default_position);
 
   if (is_moving) {
-    sphere_model = glm::translate(sphere_model, sphere_default_position + glm::vec3(0.0f, -1.0f + (float)glfwGetTime() * 0.6f, 0.0f));
+    sphere_position.y += 0.6f * (float)((speed * delta_time) / 2.0f);
   }
+
+  sphere_model = glm::translate(sphere_model, sphere_position);
 
   sphere_model = glm::scale(sphere_model, glm::vec3(0.5f, 0.5f, 1.0f));
   glUniform3fv(glGetUniformLocation(shader.id, "aColor"), 1, glm::value_ptr(sphere_color));
@@ -321,6 +322,8 @@ int main() {
 
 	while (!glfwWindowShouldClose(window)) {
 	  float current_frame = glfwGetTime();
+	  delta_time = current_frame - last_frame;
+	  last_frame = current_frame;
 	  handle_input(window);
 
 	  if (current_frame >= 2.5f) {
